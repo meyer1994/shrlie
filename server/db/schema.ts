@@ -1,11 +1,11 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
-export * from './auth'
-
-export const TCounter = sqliteTable('counter', {
+export const TLie = sqliteTable('lie', {
   id: text('id')
     .primaryKey(),
-  count: integer('count')
+  text: text('text')
+    .notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp_ms' })
     .notNull()
-    .default(0),
+    .$defaultFn(() => new Date()),
 })
