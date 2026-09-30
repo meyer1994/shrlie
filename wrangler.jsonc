@@ -3,38 +3,34 @@
  * https://developers.cloudflare.com/workers/wrangler/configuration/
  */
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "shrlie",
-  "main": "./.output/server/index.mjs",
-  "compatibility_date": "2026-09-20",
-
-  "observability": {
-    "enabled": true
-  },
-
-  "upload_source_maps": true,
-
-  /**
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "shrlie",
+	"main": "./.output/server/index.mjs",
+	"compatibility_date": "2026-09-20",
+	"observability": {
+		"enabled": true
+	},
+	"upload_source_maps": true,
+	/**
 	 * Bindings
 	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
 	 * databases, object storage, AI inference, real-time communication and more.
 	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
 	 */
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "shrlie",
-      "database_id": "ced49fa0-2b3e-406b-95a0-56666f8c918e",
-      "migrations_dir": "./server/db/migrations"
-    }
-  ],
-
-  /**
+   "d1_databases": [
+     {
+       "binding": "DB",
+       "database_name": "shrlie",
+       "database_id": "674fb50b-ed68-4be6-a8bd-4b035ea39517",
+       "migrations_dir": "./server/db/migrations"
+		}
+	],
+	/**
 	 * Static Assets
 	 * https://developers.cloudflare.com/workers/static-assets/binding/
 	 */
-  "assets": {
-    "directory": "./.output/public/",
-    "binding": "ASSETS"
-  }
+	"assets": {
+		"directory": "./.output/public/",
+		"binding": "ASSETS"
+	}
 }
