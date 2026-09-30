@@ -13,16 +13,6 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  runtimeConfig: {
-    files: {
-      bucket: '',
-      endpoint: '',
-      accessKeyId: '',
-      secretAccessKey: '',
-      region: 'auto',
-    },
-  },
-
   compatibilityDate: '2026-09-20',
 
   nitro: {
@@ -31,17 +21,6 @@ export default defineNuxtConfig({
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,
-    },
-  },
-
-  vite: {
-    optimizeDeps: {
-      include: [
-        '@trpc/client',
-        '@trpc/client/links/loggerLink',
-        'better-auth/vue',
-        'zod',
-      ],
     },
   },
 
