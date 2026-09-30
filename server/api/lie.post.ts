@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
   const form = await readFormData(event)
 
   const text = form.get('text')
-  const image = form.get('image')
+  const image = form.get('image') ?? undefined
   const { data: parsed, success } = schema.safeParse({ text, image })
   if (!success) throw createError({ status: 400, message: 'Validation Error' })
 
