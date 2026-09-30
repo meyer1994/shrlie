@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "shrlie",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,7 +13,7 @@
     "generate": "nuxt generate",
     "postinstall": "nuxt prepare",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "wrangler d1 migrations apply flower",
+    "db:migrate": "wrangler d1 migrations apply shrlie",
     "cf:deploy": "wrangler --cwd .output deploy",
     "cf:types": "wrangler types shared/wrangler.d.ts && eslint --fix shared/wrangler.d.ts"
   },
