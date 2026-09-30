@@ -5,18 +5,23 @@ useHead({
 })
 
 const text = ref('')
+const image = ref<File | null>(null)
 const loading = ref(false)
-const lie = ref<{ id: string, text: string } | null>(null)
+type Lie = { id: string, text: string, image: string | null }
+
+const lie = ref<Lie | null>(null)
 const toast = useToast()
 
 const submit = async () => {
+  const body = new FormData()
+  body.append('text', text.value)
+  if (image.value) body.append('image', image.value)
+
   loading.value = true
   try {
-    lie.value = await $fetch('/api/lie', {
-      method: 'POST',
-      body: { text: text.value },
-    })
+    lie.value = await $fetch<Lie>('/api/lie', { method: 'POST', body })
     text.value = ''
+    image.value = null
   }
   catch {
     toast.add({ title: 'Could not create lie', color: 'error' })
@@ -45,6 +50,13 @@ const submit = async () => {
           autoresize
           class="w-full"
         />
+        <UFileUpload
+          v-model="image"
+          accept="image/png,image/jpeg,image/webp,image/gif"
+          label="Add an image"
+          description="PNG, JPEG, WebP or GIF, up to 5MB"
+          class="w-full min-h-32"
+        />
         <UButton
           type="submit"
           label="Create"
@@ -53,13 +65,15 @@ const submit = async () => {
         />
       </form>
 
-      <UAlert
-        v-if="lie"
-        color="success"
-        variant="subtle"
-        title="Lie created"
-        :description="lie.text"
-      />
+      <UCard v-if="lie">
+        <p>{{ lie.text }}</p>
+        <img
+          v-if="lie.image"
+          :src="`/api/lie/${lie.id}/image`"
+          :alt="lie.text"
+          class="mt-3 rounded-md max-h-96"
+        >
+      </UCard>
     </UContainer>
   </UApp>
 </template>

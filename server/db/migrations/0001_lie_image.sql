@@ -1,0 +1,1 @@
+ALTER TABLE `lie` ADD `image` text;

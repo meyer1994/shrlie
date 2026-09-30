@@ -25,6 +25,12 @@
        "migrations_dir": "./server/db/migrations"
 		}
 	],
+	"r2_buckets": [
+		{
+			"binding": "FILES",
+			"bucket_name": "shrlie"
+		}
+	],
 	/**
 	 * Static Assets
 	 * https://developers.cloudflare.com/workers/static-assets/binding/

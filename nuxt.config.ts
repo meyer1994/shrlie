@@ -18,6 +18,10 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'cloudflare_module',
 
+    storage: {
+      files: { driver: 'cloudflare-r2-binding', binding: 'FILES' },
+    },
+
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,

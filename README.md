@@ -1,11 +1,12 @@
 # shrlie
 
-Nuxt 4 app on Cloudflare Workers (D1).
+Nuxt 4 app on Cloudflare Workers (D1 + R2).
 
 ## Endpoints
 
 ```text
-POST /api/lie     Create a lie  { text: string }  -> 201 { id, text, createdAt }
+POST /api/lie              Create a lie (multipart: text, image?)  -> 201 { id, text, image, createdAt }
+GET  /api/lie/:id/image    The lie's image
 ```
 
 ## Development

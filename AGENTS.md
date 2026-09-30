@@ -1,12 +1,13 @@
 # shrlie Agent Guide
 
-Nuxt 4 app deployed on Cloudflare Workers with D1 (SQLite).
+Nuxt 4 app deployed on Cloudflare Workers with D1 (SQLite) and R2.
 
 ## Stack
 
 - **Frontend**: Vue 3, Nuxt 4, Nuxt UI, VueUse
 - **Backend**: Nitro / H3 API routes, Drizzle ORM
 - **DB**: Cloudflare D1 (SQLite)
+- **Files**: Cloudflare R2 (`env.FILES` binding)
 - **Package Manager**: pnpm
 
 ## Structure
@@ -16,19 +17,29 @@ Nuxt 4 app deployed on Cloudflare Workers with D1 (SQLite).
 │   ├── app.vue               # the whole UI
 │   └── assets/css/main.css
 ├── server/
-│   ├── api/lie.post.ts       # POST /api/lie
+│   ├── api/
+│   │   ├── lie.post.ts       # POST /api/lie
+│   │   └── lie/[id]/image.get.ts
 │   ├── db/                   # schema.ts, migrations/
 │   └── lib/drizzle.ts        # serverDrizzle(event)
 ├── shared/                   # wrangler.d.ts, env.d.ts
 ├── drizzle.config.ts
-└── wrangler.jsonc            # D1 binding
+└── wrangler.jsonc            # D1 + R2 bindings
 ```
 
 ## Endpoints
 
 ```text
-POST /api/lie     { text: string }  -> 201 { id, text, createdAt }
+POST /api/lie              multipart: text, image? (png/jpeg/webp/gif, max 5MB)  -> 201 { id, text, image, createdAt }
+GET  /api/lie/:id/image    streams the image from R2
 ```
+
+Images go through Nitro storage: `useStorage('files')` is mounted on the R2
+`FILES` binding (`nitro.storage` in `nuxt.config.ts`). Write with
+`setItemRaw(key, bytes)` + `setMeta(key, { type, size, name })`, read with
+`getItemRaw(key, { type: 'stream' })` + `getMeta(key)`. Keys use Nitro's
+default `:` separator, e.g. `lie:<id>` (saved in `lie.image`). R2 has no native
+meta support in unstorage, so `setMeta` writes a JSON sidecar object at `<key>$`.
 
 ---
 
@@ -134,8 +145,11 @@ export default defineEventHandler(async (event) => {
 Call the API with `$fetch` (actions) or `useFetch` (data loading).
 
 ```typescript
-await $fetch('/api/lie', { method: 'POST', body: { text } })
+await $fetch<Lie>('/api/lie', { method: 'POST', body: formData })
 ```
+
+Pass the response type explicitly to `$fetch`; Nitro's typed route inference
+hits "excessive stack depth" in `nuxt typecheck` once dynamic routes exist.
 
 ---
 

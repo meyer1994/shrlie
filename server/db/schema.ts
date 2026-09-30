@@ -5,6 +5,7 @@ export const TLie = sqliteTable('lie', {
     .primaryKey(),
   text: text('text')
     .notNull(),
+  image: text('image'),
   createdAt: integer('created_at', { mode: 'timestamp_ms' })
     .notNull()
     .$defaultFn(() => new Date()),
