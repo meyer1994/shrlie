@@ -14,24 +14,35 @@ Nuxt 4 app deployed on Cloudflare Workers with D1 (SQLite) and R2.
 
 ```
 ├── app/
-│   ├── app.vue               # the whole UI
+│   ├── app.vue               # layout (header + NuxtPage)
+│   ├── pages/index.vue       # create form
+│   ├── pages/l/[id].vue      # view a lie
 │   └── assets/css/main.css
 ├── server/
 │   ├── api/
 │   │   ├── lie.post.ts       # POST /api/lie
-│   │   └── lie/[id]/image.get.ts
+│   │   ├── l/[id].get.ts     # GET /api/l/:id
+│   │   └── l/[id]/image.get.ts
 │   ├── db/                   # schema.ts, migrations/
 │   └── lib/drizzle.ts        # serverDrizzle(event)
-├── shared/                   # wrangler.d.ts, env.d.ts
+├── shared/                   # types/ (auto-imported, e.g. Lie), wrangler.d.ts, env.d.ts
 ├── drizzle.config.ts
 └── wrangler.jsonc            # D1 + R2 bindings
+```
+
+## Pages
+
+```text
+/          Create a lie (redirects to /l/:id)
+/l/:id     View a lie
 ```
 
 ## Endpoints
 
 ```text
-POST /api/lie              multipart: text, image? (png/jpeg/webp/gif, max 5MB)  -> 201 { id, text, image, createdAt }
-GET  /api/lie/:id/image    streams the image from R2
+POST /api/lie              multipart: text, image? (png/jpeg/webp/gif, max 5MB)  -> 201 Lie
+GET  /api/l/:id            Lie, 404 if missing
+GET  /api/l/:id/image      streams the image from R2
 ```
 
 Images go through Nitro storage: `useStorage('files')` is mounted on the R2

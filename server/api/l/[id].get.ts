@@ -1,0 +1,16 @@
+import { eq } from 'drizzle-orm'
+import * as z from 'zod'
+import { TLie } from '~~/server/db/schema'
+import { serverDrizzle } from '~~/server/lib/drizzle'
+
+const schema = z.object({ id: z.string() })
+
+export default defineEventHandler(async (event) => {
+  const { id } = await getValidatedRouterParams(event, schema.parse)
+  const db = serverDrizzle(event)
+
+  const lie = await db.select().from(TLie).where(eq(TLie.id, id)).get()
+  if (!lie) throw createError({ statusCode: 404, statusMessage: 'Lie not found' })
+
+  return lie
+})
