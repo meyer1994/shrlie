@@ -82,7 +82,12 @@ const onError = ({ errors }: FormErrorEvent) => {
       </p>
     </div>
 
-    <UFormField name="text">
+    <UFormField
+      name="text"
+      label="Story"
+      :hint="`${state.text.length}/1024`"
+      required
+    >
       <UTextarea
         v-model="state.text"
         placeholder="File your story..."
