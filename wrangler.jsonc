@@ -17,12 +17,12 @@
 	 * databases, object storage, AI inference, real-time communication and more.
 	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
 	 */
-   "d1_databases": [
-     {
-       "binding": "DB",
-       "database_name": "shrlie",
-       "database_id": "674fb50b-ed68-4be6-a8bd-4b035ea39517",
-       "migrations_dir": "./server/db/migrations"
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "shrlie",
+			"database_id": "674fb50b-ed68-4be6-a8bd-4b035ea39517",
+			"migrations_dir": "./server/db/migrations"
 		}
 	],
 	"r2_buckets": [
