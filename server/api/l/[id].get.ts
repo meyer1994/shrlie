@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   const db = serverDrizzle(event)
 
   const lie = await db.select().from(TLie).where(eq(TLie.id, id)).get()
-  if (!lie) throw createError({ statusCode: 404, statusMessage: 'Lie not found' })
+  if (!lie) throw createError({ status: 404, message: 'Lie not found' })
 
   return lie
 })

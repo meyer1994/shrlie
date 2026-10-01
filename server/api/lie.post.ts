@@ -19,8 +19,8 @@ export default defineEventHandler(async (event) => {
 
   const text = form.get('text')
   const image = form.get('image') ?? undefined
-  const { data: parsed, success } = schema.safeParse({ text, image })
-  if (!success) throw createError({ status: 400, message: 'Validation Error' })
+  const { data: parsed, success, error } = schema.safeParse({ text, image })
+  if (!success) throw createError({ status: 400, message: 'Validation Error', data: error.issues })
 
   const id = uuidv7()
   const imageUrl = `lie:${id}`
