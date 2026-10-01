@@ -14,10 +14,11 @@ Nuxt 4 app deployed on Cloudflare Workers with D1 (SQLite) and R2.
 
 ```
 ├── app/
-│   ├── app.vue               # layout (header + NuxtPage)
+│   ├── app.vue               # layout (newspaper masthead + NuxtPage)
+│   ├── app.config.ts         # Nuxt UI colors + component overrides
 │   ├── pages/index.vue       # create form
-│   ├── pages/l/[id].vue      # view a lie
-│   └── assets/css/main.css
+│   ├── pages/l/[id].vue      # view a lie (article + OG/Twitter meta)
+│   └── assets/css/main.css   # fonts, radius, newsprint background
 ├── server/
 │   ├── api/
 │   │   ├── lie.post.ts       # POST /api/lie
@@ -40,7 +41,8 @@ Nuxt 4 app deployed on Cloudflare Workers with D1 (SQLite) and R2.
 ## Endpoints
 
 ```text
-POST /api/lie              multipart: text, image? (png/jpeg/webp/gif, max 5MB)  -> 201 Lie
+POST /api/lie              multipart: text, image? (png/jpeg/webp/gif, max 5MB),
+                           title?, description?, author?, twitter?, imageAlt?  -> 201 Lie
 GET  /api/l/:id            Lie, 404 if missing
 GET  /api/l/:id/image      streams the image from R2
 ```
@@ -165,6 +167,10 @@ hits "excessive stack depth" in `nuxt typecheck` once dynamic routes exist.
 ---
 
 ## UI & Theming
+
+Single newspaper look: Playfair Display (`font-headline`) for headlines,
+Libre Caslon Text (`font-sans`) for body, `--ui-radius: 0`. Fonts are
+registered in `fonts.families` (`nuxt.config.ts`) and served by `@nuxt/fonts`.
 
 | Token     | Use               |
 | --------- | ----------------- |
