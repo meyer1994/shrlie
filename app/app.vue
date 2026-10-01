@@ -1,7 +1,15 @@
 <script setup lang="ts">
 useHead({
   titleTemplate: title => title ? `${title} - shrlie` : 'shrlie',
-  meta: [{ name: 'description', content: 'Share a lie' }],
+})
+
+useSeoMeta({
+  description: 'Share a lie',
+  ogSiteName: 'shrlie',
+  ogType: 'website',
+  ogTitle: 'shrlie',
+  ogDescription: 'Share a lie',
+  twitterCard: 'summary',
 })
 </script>
 

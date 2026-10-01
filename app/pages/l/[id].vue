@@ -3,17 +3,39 @@ const route = useRoute()
 const id = route.params.id as string
 
 const { data: lie } = await useFetch<Lie>(`/api/l/${id}`)
-if (!lie.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Lie not found', fatal: true })
-}
+if (!lie.value) throw createError({ status: 404, message: 'Lie not found', fatal: true })
 
-const imageUrl = computed(() => lie.value?.image ? `/api/l/${id}/image` : undefined)
-const origin = useRequestURL().origin
+const url = useRequestURL()
+const imageUrl = computed(() => lie.value?.image ? `${url.origin}/api/l/${id}/image` : undefined)
+
+const truncate = (text: string, max: number) =>
+  text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text
+
+const title = computed(() => truncate(lie.value?.text ?? '', 70))
+const description = computed(() => truncate(lie.value?.text ?? '', 200))
+
+useHead({
+  link: [{ rel: 'canonical', href: url.origin }],
+})
 
 useSeoMeta({
-  title: () => lie.value?.text,
-  ogTitle: () => lie.value?.text,
-  ogImage: () => imageUrl.value && `${origin}${imageUrl.value}`,
+  title,
+  description,
+
+  ogType: 'article',
+  ogUrl: url.origin,
+  ogTitle: title,
+  ogDescription: description,
+  ogImage: imageUrl,
+  ogImageAlt: () => imageUrl.value && description.value,
+
+  articlePublishedTime: () => lie.value?.createdAt,
+
+  twitterCard: () => imageUrl.value ? 'summary_large_image' : 'summary',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: imageUrl,
+  twitterImageAlt: () => imageUrl.value && description.value,
 })
 </script>
 
