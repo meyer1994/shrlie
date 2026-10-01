@@ -8,9 +8,6 @@ if (!lie.value) throw createError({ status: 404, message: 'Lie not found', fatal
 const url = useRequestURL()
 const imageUrl = computed(() => lie.value?.image ? `${url.origin}/api/l/${id}/image` : undefined)
 
-const truncate = (text: string, max: number) =>
-  text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text
-
 const title = computed(() => lie.value?.title ?? truncate(lie.value?.text ?? '', 70))
 const description = computed(() => lie.value?.description ?? truncate(lie.value?.text ?? '', 200))
 const imageAlt = computed(() => lie.value?.imageAlt ?? description.value)

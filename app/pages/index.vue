@@ -36,8 +36,10 @@ const wireFields = ['title', 'description', 'author', 'twitter', 'imageAlt']
 const wire = ref<string>()
 const toast = useToast()
 
-const truncate = (value: string, max: number) =>
-  value.length > max ? `${value.slice(0, max - 1).trimEnd()}…` : value
+const preview = computed(() => ({
+  title: state.title.trim() || truncate(state.text.trim(), 70) || 'Your headline here',
+  description: state.description.trim() || truncate(state.text.trim(), 200) || 'Your story, as it will appear on share cards.',
+}))
 
 const onSubmit = async ({ data }: FormSubmitEvent<Schema>) => {
   const body = new FormData()
@@ -171,6 +173,17 @@ const onError = ({ errors }: FormErrorEvent) => {
               class="w-full"
             />
           </UFormField>
+          <div class="sm:col-span-2 space-y-1.5">
+            <p class="text-sm font-medium text-default">
+              Share preview
+            </p>
+            <SharePreview
+              :title="preview.title"
+              :description="preview.description"
+              :image="state.image"
+              :image-alt="state.imageAlt"
+            />
+          </div>
         </div>
       </template>
     </UAccordion>
