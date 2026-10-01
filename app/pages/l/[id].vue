@@ -2,7 +2,7 @@
 const route = useRoute()
 const id = route.params.id as string
 
-const { data: lie } = await useFetch<Lie>(`/api/l/${id}`)
+const { data: lie } = await useFetch<Lie & { views: number }>(`/api/l/${id}`)
 if (!lie.value) throw createError({ status: 404, message: 'Lie not found', fatal: true })
 
 const url = useRequestURL()
@@ -67,6 +67,7 @@ useSeoMeta({
           date-style="long"
           time-style="short"
         />
+        · Read {{ lie.views.toLocaleString('en-US') }} {{ lie.views === 1 ? 'time' : 'times' }}
       </p>
     </header>
 
