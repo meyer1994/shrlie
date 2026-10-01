@@ -6,6 +6,11 @@ export const TLie = sqliteTable('lie', {
   text: text('text')
     .notNull(),
   image: text('image'),
+  imageAlt: text('image_alt'),
+  title: text('title'),
+  description: text('description'),
+  author: text('author'),
+  twitter: text('twitter'),
   createdAt: integer('created_at', { mode: 'timestamp_ms' })
     .notNull()
     .$defaultFn(() => new Date()),

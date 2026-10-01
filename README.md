@@ -12,7 +12,7 @@ Nuxt 4 app on Cloudflare Workers (D1 + R2).
 ## Endpoints
 
 ```text
-POST /api/lie              Create a lie (multipart: text, image?)  -> 201 { id, text, image, createdAt }
+POST /api/lie              Create a lie (multipart: text, image?, title?, description?, author?, twitter?, imageAlt?)  -> 201 Lie
 GET  /api/l/:id            A lie
 GET  /api/l/:id/image      The lie's image
 ```
