@@ -50,24 +50,36 @@ useSeoMeta({
       <p class="text-xs uppercase tracking-[0.3em] text-primary">
         Exclusive
       </p>
-      <h1 class="font-headline text-4xl sm:text-5xl font-black leading-tight text-balance text-highlighted">
+      <h1 class="font-headline text-3xl sm:text-5xl font-black leading-tight text-balance text-highlighted">
         {{ title }}
       </h1>
       <p class="italic text-lg text-muted">
         {{ lie.description ?? 'Sources close to the matter could not be reached for comment.' }}
       </p>
-      <p class="py-2 border-y border-default text-xs uppercase tracking-widest text-muted">
-        By {{ lie.author ?? 'an Anonymous Source' }}
-        <template v-if="twitterCreator">
-          ({{ twitterCreator }})
-        </template>
-        ·
+      <p class="py-2 flex flex-col sm:flex-row sm:flex-wrap sm:justify-center gap-y-0.5 sm:gap-x-2 border-y border-default text-xs uppercase tracking-wider sm:tracking-widest text-muted">
+        <span>
+          By {{ lie.author ?? 'an Anonymous Source' }}
+          <template v-if="twitterCreator">
+            ({{ twitterCreator }})
+          </template>
+        </span>
+        <span
+          class="hidden sm:inline"
+          aria-hidden="true"
+        >·</span>
         <NuxtTime
           :datetime="lie.createdAt"
           date-style="long"
           time-style="short"
+          class="whitespace-nowrap"
         />
-        · Read {{ lie.views.toLocaleString('en-US') }} {{ lie.views === 1 ? 'time' : 'times' }}
+        <span
+          class="hidden sm:inline"
+          aria-hidden="true"
+        >·</span>
+        <span class="whitespace-nowrap">
+          Read {{ lie.views.toLocaleString('en-US') }} {{ lie.views === 1 ? 'time' : 'times' }}
+        </span>
       </p>
     </header>
 

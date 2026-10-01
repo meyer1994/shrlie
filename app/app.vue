@@ -26,14 +26,20 @@ useSeoMeta({
 
         <NuxtLink
           to="/"
-          class="block mt-4 font-headline font-black tracking-tight text-5xl sm:text-6xl text-highlighted"
+          class="block mt-4 font-headline font-black tracking-tight text-4xl sm:text-6xl text-highlighted"
         >
           The Shrlie Times
         </NuxtLink>
-        <div class="mt-3 py-1 flex justify-between gap-3 border-y-4 border-double border-inverted text-xs uppercase tracking-widest">
+        <div class="mt-3 py-1 flex justify-between gap-3 border-y-4 border-double border-inverted text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest whitespace-nowrap">
+          <NuxtTime
+            :datetime="new Date()"
+            date-style="medium"
+            class="sm:hidden"
+          />
           <NuxtTime
             :datetime="new Date()"
             date-style="full"
+            class="hidden sm:inline"
           />
           <span class="hidden sm:inline italic normal-case tracking-normal">
             “All the News That’s Fit to Fake”
