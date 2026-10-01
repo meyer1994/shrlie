@@ -1,2 +1,15 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+@theme {
+  --font-sans: 'Libre Caslon Text', Georgia, serif;
+  --font-headline: 'Playfair Display', Georgia, serif;
+}
+
+:root {
+  --ui-radius: 0;
+}
+
+:root:not(.dark) {
+  --ui-bg: #f4efe4;
+}

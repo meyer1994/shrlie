@@ -43,4 +43,11 @@ export default defineNuxtConfig({
     checker: false,
     config: { stylistic: true },
   },
+
+  fonts: {
+    families: [
+      { name: 'Playfair Display', weights: [400, 700, 900], global: true },
+      { name: 'Libre Caslon Text', weights: [400, 700], global: true },
+    ],
+  },
 })

@@ -1,27 +1,46 @@
 <script setup lang="ts">
 useHead({
-  titleTemplate: title => title ? `${title} - shrlie` : 'shrlie',
+  titleTemplate: title => title ? `${title} - The Shrlie Times` : 'The Shrlie Times',
 })
 
 useSeoMeta({
-  description: 'Share a lie',
-  ogSiteName: 'shrlie',
+  description: 'All the News That’s Fit to Fake',
+  ogSiteName: 'The Shrlie Times',
   ogType: 'website',
-  ogTitle: 'shrlie',
-  ogDescription: 'Share a lie',
+  ogTitle: 'The Shrlie Times',
+  ogDescription: 'All the News That’s Fit to Fake',
   twitterCard: 'summary',
 })
 </script>
 
 <template>
   <UApp>
-    <UContainer class="max-w-xl py-16 space-y-6">
-      <NuxtLink
-        to="/"
-        class="block text-3xl font-bold"
-      >
-        shrlie
-      </NuxtLink>
+    <UContainer class="max-w-3xl py-16 space-y-6">
+      <header class="text-center">
+        <div class="pb-2 flex items-center justify-between gap-3 border-b border-default">
+          <span class="text-xs uppercase tracking-widest text-muted">
+            Vol. I · No. 1
+          </span>
+          <UColorModeButton />
+        </div>
+
+        <NuxtLink
+          to="/"
+          class="block mt-4 font-headline font-black tracking-tight text-5xl sm:text-6xl text-highlighted"
+        >
+          The Shrlie Times
+        </NuxtLink>
+        <div class="mt-3 py-1 flex justify-between gap-3 border-y-4 border-double border-inverted text-xs uppercase tracking-widest">
+          <NuxtTime
+            :datetime="new Date()"
+            date-style="full"
+          />
+          <span class="hidden sm:inline italic normal-case tracking-normal">
+            “All the News That’s Fit to Fake”
+          </span>
+          <span>Price: One Lie</span>
+        </div>
+      </header>
 
       <NuxtPage />
     </UContainer>
