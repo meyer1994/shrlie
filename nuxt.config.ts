@@ -28,6 +28,12 @@ export default defineNuxtConfig({
     },
   },
 
+  vite: {
+    server: {
+      allowedHosts: ['free-loudly-dingo.ngrok-free.app'],
+    },
+  },
+
   typescript: {
     typeCheck: false,
     strict: true,
