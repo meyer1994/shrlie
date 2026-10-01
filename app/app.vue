@@ -44,7 +44,7 @@ useSeoMeta({
           <span class="hidden sm:inline italic normal-case tracking-normal">
             “All the News That’s Fit to Fake”
           </span>
-          <span>Price: One Lie</span>
+          <span>Price: One Attention</span>
         </div>
       </header>
 
