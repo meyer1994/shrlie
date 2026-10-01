@@ -43,7 +43,7 @@ Nuxt 4 app deployed on Cloudflare Workers with D1 (SQLite) and R2.
 ```text
 POST /api/lie              multipart: text, image? (png/jpeg/webp/gif, max 5MB),
                            title?, description?, author?, twitter?, imageAlt?  -> 201 Lie
-GET  /api/l/:id            Lie, 404 if missing
+GET  /api/l/:id            Lie & { views }, 404 if missing; logs a click (ip, user agent, referer, cf JSON)
 GET  /api/l/:id/image      streams the image from R2
 ```
 

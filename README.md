@@ -13,7 +13,7 @@ Nuxt 4 app on Cloudflare Workers (D1 + R2).
 
 ```text
 POST /api/lie              Create a lie (multipart: text, image?, title?, description?, author?, twitter?, imageAlt?)  -> 201 Lie
-GET  /api/l/:id            A lie
+GET  /api/l/:id            A lie with its view count (records a click)
 GET  /api/l/:id/image      The lie's image
 ```
 
